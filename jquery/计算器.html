@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .container{
+        width: 230px;
+        height: 230px;
+        margin: 100px auto;
+        background: rgb(196, 210, 224);
+        padding: 5px;
+    }
+    .top{
+        width: 230px;
+        height: 60px;
+        background: #999;
+        border-radius: 5px;
+    }
+    .bottom{
+        width: 230px;
+        height: 170px;
+    }
+    .left{
+        width: 160px;
+        height: 170px;
+        margin-top: 3px;
+        float: left;
+    }
+    .left input{
+        width: 40px;
+        height: 40px;
+        margin-top: 2px;
+
+    }
+    .right{
+        width: 70px;
+        height: 170px;
+        float: left;
+    }
+    .right input{
+        width: 70px;
+        height: 30px;
+        margin-top: 4px;
+    }
+    .top p{
+        line-height: 30px;
+        height: 30px;
+        text-align: right;
+        padding-right: 5px;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="top">
+            <p class="txt1"></p>
+            <p class="txt2">0</p>
+        </div>
+        <div class="bottom">
+            <div class="left">
+                <input type="button" value="7">
+                <input type="button" value="8">
+                <input type="button" value="9">
+
+                <input type="button" value="4">
+                <input type="button" value="5">
+                <input type="button" value="6">
+
+                <input type="button" value="1">
+                <input type="button" value="2">
+                <input type="button" value="3">
+
+                <input type="button" value="C">
+                <input type="button" value="0">
+                <input type="button" value=".">
+            </div>
+            <div class="right">
+                
+                <input type="button" value="+">
+                <input type="button" value="-">
+
+                <input type="button" value="*">
+                <input type="button" value="/">
+                <input type="button" value="=">
+            </div>
+        </div>
+    </div>
+
+    <script src="./jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('.left input').click(function(){
+                if($(this).val()=="C"){
+                    $(".txt2").text(0)
+                    $('.txt1').text('')
+                }else{
+                    // 如果已经输入过.了
+                    if($(".txt2").text().indexOf('.')!=-1){
+                        // 已经存在一个点
+                        if($(this).val()!='.'){
+                            $(".txt2").append($(this).val())
+                        }
+                    }else if($(".txt2").text()=='0'){
+                        if($(this).val()=='.'){
+                            $(".txt2").append($(this).val())
+                        }else{
+                            $(".txt2").text($(this).val())
+                        }
+                    }else{
+                        $(".txt2").append($(this).val())
+                    }
+                }
+                     
+            })
+
+
+            // .right里 除了等号外的其他按钮
+            $('.right input:not(:last)').click(function(){
+                $('.txt1').text($(".txt2").text()+$(this).val())
+                $('.txt2').text('')
+            })
+            $('.right input').last().click(function(){
+                var num1 = $(".txt1").text()
+                var num2 = $(".txt2").text()
+                if(num1==''){
+                    num1=0
+                }
+                if(num2==''){
+                    num2=0
+                }
+              
+                var symbol = num1[num1.length-1]
+                $(".txt1").text(count[symbol](num1,num2))
+                $('.txt2').text('')
+            })
+
+            var count = {
+                "+":function(a,b){
+                    return parseFloat(a)+parseFloat(b)
+                },
+                "-":function(a,b){
+                    return parseFloat(a)-parseFloat(b)
+                },
+                "*":function(a,b){
+                    return parseFloat(a)*parseFloat(b)
+                },
+                "/":function(a,b){
+                    return parseFloat(a)/parseFloat(b)
+                },
+            }
+        })
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .container{
+        width: 800px;
+        margin: 50px auto;
+    }
+    .min{
+        width: 400px;
+        height: auto;
+        float: left;
+    }
+    .max{
+        width: 400px;
+        height: 300px;
+        float: right;
+        overflow: hidden;
+        display: none;
+        position: relative;
+    }
+    .max img{
+        position: absolute;
+    }
+    .left{
+        height: 80px;
+        line-height: 80px;
+        float: left;
+        width: 20px;
+        background: #ccc;
+        font-weight: bold;
+        text-align: center;
+    }
+    .item{
+        float: left;
+    }
+    .item ul{
+        list-style: none;
+    }
+    .item ul li{
+        float: left;
+    }
+    .item ul li img{
+        width: 60px;
+        height: 81px;
+        margin-right:22px;
+        border: 1px solid #ccc;
+    }
+    .right{
+        width: 20px;
+        height: 80px;
+        line-height: 80px;
+        background: #ccc;
+        float: left;
+        font-weight: bold;
+        text-align: center;
+    }
+    .top{
+        position: relative;
+        width: 323px;
+        height: 430px;
+    }
+    .top img{
+        width: 323px;
+        height: 430px;
+    }
+    b{
+        width: 150px;
+        height: 150px;
+        background: blue;
+        opacity: .5;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        display: none;
+    }
+    .bg{
+        border: 3px solid orange!important;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="min">
+            <div class="top">
+                <img src="./fangdajing/0small.jpg" alt="">
+                <b></b>
+            </div>
+            <div class="bottom">
+                <!-- <div class="left">&lt;</div> -->
+                <div class="item">
+                    <ul>
+                        <li><img class="bg" src="./fangdajing/0small.jpg" alt=""></li>
+                        <li><img src="./fangdajing/1small.jpg" alt=""></li>
+                        <li><img src="./fangdajing/2small.jpg" alt=""></li>
+                        <li><img src="./fangdajing/3small.jpg" alt=""></li>
+                    </ul>
+                </div>
+                <!-- <div class="right">&gt;</div> -->
+
+            </div>
+        </div>
+        <div class="max">
+            <img src="./fangdajing/0big.jpg" alt="">
+        </div>
+    </div>
+    <script src="./jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('.item ul li img').click(function(){
+                $(this).addClass('bg').parent().siblings().find('img').removeClass('bg')
+                var index = $(this).parent().index()
+                $('.top img').attr('src',$(this).attr('src'))
+                $('.max img').attr('src','./fangdajing/'+index+'big.jpg')
+                console.log('./fangdajing/'+index+'big.jpg')
+
+            })
+
+            $('.top').mousemove(function(e){
+                var x=e.pageX-$(this).offset().left-$('b').width()/2
+                var y=e.pageY-$(this).offset().top-$('b').height()/2
+                var maxWidth = $(this).width()-$('b').width()
+                var maxHeight = $(this).height()-$('b').height()
+                if(x<0){
+                    x=0
+                }else if(x>maxWidth){
+                    x=maxWidth
+                }
+
+                if(y<0){
+                    y=0
+                }else if(y>maxHeight){
+                    y=maxHeight
+                }
+
+                $('b').show()
+                $('.max').show()
+                $('b').css({
+                    "left":x,
+                    "top":y
+                })
+                $('.max img').css({
+                    "left":-2*x,
+                    "top":-2*y
+                })
+
+            })
+        })
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #container{
+        width: 998px;
+        height: 405px;
+        margin:  20px auto;
+        overflow: hidden;
+    }
+    ul{
+        list-style: none;
+    }
+    ul>li{
+        float: left;
+        width: 115px;
+        height: 405px;
+    }
+    .active{
+        width: 538px;
+        height: 405px;
+    }
+    img{
+        width: 538px;
+        height: 405px;
+    }
+</style>
+<body>
+    <div id="container">
+        <ul>
+            <li class="active"><img src="./img/1.jfif" alt=""></li>
+            <li><img src="./img/2.jfif" alt=""></li>
+            <li><img src="./img/3.jfif" alt=""></li>
+            <li><img src="./img/4.jfif" alt=""></li>
+            <li><img src="./img/5.jfif" alt=""></li>
+        </ul>
+    </div>
+
+    <script src="./jquery.min.js"></script>
+    <script>
+        $(function(){
+            $("#container>ul>li").mouseover(function(){
+                $(this).stop(true).animate({width:538},500).siblings().stop(true).animate({width:115})
+            })
+        })
+    </script>
+    
+</body>
+</html>

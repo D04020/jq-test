@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .box1{
+        width: 1000px;
+        height: 50px;
+        background: blue;
+        margin: 0 auto;
+        position: relative;
+    }
+    .box2{
+        width: 50px;
+        height: 50px;
+        background: red;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+    .dv1{
+        width: 300px;
+        height: 200px;
+        border: 1px solid #ccc;
+        overflow: hidden;
+        position: relative;
+    }
+    .dv2{
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+</style>
+<body>
+    <div class="box1">
+        <div class="box2"></div>
+    </div>
+    <div class="dv1">
+        <div class="dv2">
+                        【文/观察者网 齐倩】当地时间3月3日，土耳其哈斯特帕大学宣布，中国科兴疫苗已在该国完成最后阶段的临床试验，有效性为83.5%，对重症和住院的保护率达到100%。
+            根据科兴公司此前公布数据，巴西的III期临床试验结果显示，科兴疫苗有效性仅为50.3%。
+            至于巴西的数据为啥差别这么大？土耳其伊斯坦布尔大学医学院教授乌雷斯（Ali Yagiz Uresin）解释称，这是由于科兴允许每个申请国自行决定临床试验方案。
+            与土耳其不同，巴西临床试验在高危人群医护人员中进行，且对于感染的判定标准较为宽松：巴西将核酸检测结果呈阳性的病例均归为感染病例。乌雷斯表示：“事实上，土耳其和巴西的研究结果实际上是相似的，都表明科兴疫苗有效。”
+            值得一提的是，P1变异病毒的出现令巴西疫情雪上加霜。路透社称，目前仍不确定英国阿斯利康疫苗以及科兴疫苗对变异病毒是否有效。但研究表明，科兴疫苗对英国和南非出现的新冠病毒变种有效。
+        </div>
+    </div>
+
+    <script src="./jquery.min.js"></script>
+    <script>
+        $(function(){
+            var x;
+            $('.box2').mousedown(function(e){
+                x = e.pageX-$(this).offset().left  
+                // 盒子左侧到鼠标的距离（内部距离）
+                $(document).bind('mousemove',function(e){
+                    var _x= e.pageX-$('.box1').offset().left-x
+                    var _width =$('.box1').width()-$('.box2').width()
+                    if(_x<0){
+                        _x=0
+                    }else if(_x>_width){
+                        _x=_width
+                    }
+
+                    var t = _x/_width
+                    var T = -t*($('.dv2').height()-$('.dv1').height())
+                    // var _x=pageX-x
+                    $(".box2").css("left",_x)
+                    $(".dv2").css("top",T)
+
+                })
+                $(document).mouseup(function(){
+                    $(".box2").unbind('mousemove')
+                })
+            })
+        })
+    </script>
+    
+</body>
+</html>
